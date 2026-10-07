@@ -1,0 +1,75 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = Stream
+Parser = SLR
+#RegularDefinitions
+
+#Tokens
+:[\n\t\r\s]
+EXIBIR: Show
+LOGARITMO: Log
+IDENTIFICADOR: [a-zA-Z][a-zA-Z0-9]*
+NUMERO: [0-1]+
+ATRIBUICAO: =
+SOMA: \+
+SUBTRACAO: \-
+PRODUTO: \*
+QUOCIENTE: /
+POTENCIA: \*\*
+ABRE_PARENTESE: \(
+FECHA_PARENTESE: \)
+FIM_INSTRUCAO: ;
+#NonTerminals
+<PROGRAM>
+<INSTRUCAO>
+<EXPRESSAO>
+<CONTINUACAO_ADITIVA>
+<TERMO>
+<FATOR>
+<ELEMENTO>
+#Grammar
+<PROGRAM> ::=
+      <INSTRUCAO>
+    | <INSTRUCAO> <PROGRAM>
+    ;
+
+<INSTRUCAO> ::=
+      IDENTIFICADOR #7 ATRIBUICAO <EXPRESSAO> FIM_INSTRUCAO #8
+    | EXIBIR ABRE_PARENTESE <EXPRESSAO> FECHA_PARENTESE FIM_INSTRUCAO #9
+    | <EXPRESSAO>
+    ;
+
+<EXPRESSAO> ::=
+      <EXPRESSAO> <CONTINUACAO_ADITIVA>
+    | <TERMO>
+    ;
+
+<CONTINUACAO_ADITIVA> ::=
+      SOMA <TERMO> #1
+    | SUBTRACAO <TERMO> #2
+    ;
+
+<TERMO> ::=
+      <TERMO> PRODUTO <FATOR> #3
+    | <TERMO> QUOCIENTE <FATOR> #4
+    | <FATOR>
+    ;
+
+<FATOR> ::=
+      <FATOR> POTENCIA <ELEMENTO> #5
+    | LOGARITMO <ELEMENTO> #6
+    | <ELEMENTO>
+    ;
+
+<ELEMENTO> ::=
+      ABRE_PARENTESE <EXPRESSAO> FECHA_PARENTESE
+    | NUMERO #10
+    | IDENTIFICADOR #11
+    ;
