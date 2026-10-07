@@ -16,6 +16,10 @@ O trabalho propõe desenvolver uma gramática e um interpretador utilizando o GA
 * Eduardo José de Souza
 * Lucas Lopes Baroni
 
+## Vídeo com explicação no Youtube
+
+Link -> https://www.youtube.com/watch?v=ZkoEMa5X2Ls
+
 ## Conteúdo do repositório
 
 - `ENUNCIADO - LFA M2.pdf`: objetivo e requisitos do trabalho.
